@@ -10,11 +10,12 @@ export type Article = {
   urlToImage?: string;
   publishedAt: string;
   content: string;
-  id:string;
+  id: string;
+  isFavorite: boolean;
 };
 
 export type Articles = {
-    loading: boolean;
-    error: string;
-    articles: Article[]
-}
+  loading: boolean;
+  error: string;
+  articles: Article[];
+};

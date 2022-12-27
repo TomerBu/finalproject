@@ -15,6 +15,7 @@ export const fetchArticles = () =>
       articles.forEach((a) => {
         a.urlToImage = a.urlToImage ?? defaultImage;
         a.id = v4();
+        a.isFavorite = false
       });
       return articles;
     });

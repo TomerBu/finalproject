@@ -9,6 +9,7 @@ import NewsDetailsView from "./routes/news-details/NewsDetailsView";
 import NewsView from "./routes/news/NewsView";
 import { fetchNews } from "./features/news/newsSlice";
 import LoaderSpinners from "./components/loader-spinners/LoaderSpinners";
+import { IconContext } from "react-icons";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,15 +20,18 @@ function App() {
   return (
     <>
       <TopNav />
+
       <LoaderSpinners />
-      <Routes>
-        <Route path="/" element={<NewsView />} />
-        <Route path="/favorites" element={<FavoritesView />} />
-        <Route path="/about" element={<AboutView />} />
-        <Route path="/news" element={<NewsView />} />
-        {/* master detail: */}
-        <Route path="/news/:id" element={<NewsDetailsView />} />
-      </Routes>
+      <IconContext.Provider value={{color: 'red', size:'100px'}}>
+        <Routes>
+          <Route path="/" element={<NewsView />} />
+          <Route path="/favorites" element={<FavoritesView />} />
+          <Route path="/about" element={<AboutView />} />
+          <Route path="/news" element={<NewsView />} />
+          {/* master detail: */}
+          <Route path="/news/:id" element={<NewsDetailsView />} />
+        </Routes>
+      </IconContext.Provider>
     </>
   );
 }
