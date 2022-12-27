@@ -1,5 +1,5 @@
 import { fetchArticles } from "./../../services/news-service";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Article, Articles } from "./news.d";
 
 const initialState: Articles = {
@@ -16,7 +16,15 @@ export const fetchNews = createAsyncThunk<Article[]>(
 const newsSlice = createSlice({
   name: "news",
   initialState,
-  reducers: {},
+  reducers: {
+    //payload = id of the article
+    toggleFavorite: (state, action: PayloadAction<string>) => {
+      const index = state.articles.findIndex((a) => a.id === action.payload);
+      if (index !== -1) {
+        state.articles[index].isFavorite = !state.articles[index].isFavorite;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNews.pending, (state, action) => {
@@ -38,3 +46,6 @@ const newsSlice = createSlice({
 });
 
 export default newsSlice.reducer;
+
+//export const favoriteActions = newsSlice.actions;
+export const { toggleFavorite } = newsSlice.actions;
