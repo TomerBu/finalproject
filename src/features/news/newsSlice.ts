@@ -1,3 +1,4 @@
+import { fetchArticles } from "./../../services/news-service";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Article, Articles } from "./news.d";
 
@@ -7,12 +8,9 @@ const initialState: Articles = {
   loading: false,
 };
 
-export const fetchNews = createAsyncThunk<Article[]>("news/fetchNews", () =>
-  fetch(
-    "https://newsapi.org/v2/top-headlines?country=us&apiKey=8f477e48200d4836bb9dd55e0dde859c"
-  )
-    .then((res) => res.json())
-    .then((json) => json.articles)
+export const fetchNews = createAsyncThunk<Article[]>(
+  "news/fetchNews",
+  fetchArticles
 );
 
 const newsSlice = createSlice({
@@ -28,7 +26,7 @@ const newsSlice = createSlice({
       })
       .addCase(fetchNews.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? 'Something went wrong';
+        state.error = action.error.message ?? "Something went wrong";
         state.articles = [];
       })
       .addCase(fetchNews.fulfilled, (state, action) => {
@@ -39,4 +37,4 @@ const newsSlice = createSlice({
   },
 });
 
-export default newsSlice.reducer
+export default newsSlice.reducer;

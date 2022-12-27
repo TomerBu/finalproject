@@ -8,6 +8,8 @@ import FavoritesView from "./routes/favorites/FavoritesView";
 import NewsDetailsView from "./routes/news-details/NewsDetailsView";
 import NewsView from "./routes/news/NewsView";
 import { fetchNews } from "./features/news/newsSlice";
+import LoaderSpinners from "./components/loader-spinners/LoaderSpinners";
+
 function App() {
   const dispatch = useAppDispatch();
 
@@ -17,6 +19,7 @@ function App() {
   return (
     <>
       <TopNav />
+      <LoaderSpinners />
       <Routes>
         <Route path="/" element={<NewsView />} />
         <Route path="/favorites" element={<FavoritesView />} />

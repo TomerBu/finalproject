@@ -7,9 +7,10 @@ export type Article = {
   title: string;
   description: string;
   url: string;
-  urlToImage: string;
+  urlToImage?: string;
   publishedAt: string;
   content: string;
+  id:string;
 };
 
 export type Articles = {
