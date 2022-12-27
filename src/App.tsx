@@ -1,57 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-
+import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { useAppDispatch } from "./app/hooks";
+import TopNav from "./components/top-nav/TopNav";
+import AboutView from "./routes/about/AboutView";
+import FavoritesView from "./routes/favorites/FavoritesView";
+import NewsDetailsView from "./routes/news-details/NewsDetailsView";
+import NewsView from "./routes/news/NewsView";
+import { fetchNews } from "./features/news/newsSlice";
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNews());
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+      <TopNav />
+      <Routes>
+        <Route path="/" element={<NewsView />} />
+        <Route path="/favorites" element={<FavoritesView />} />
+        <Route path="/about" element={<AboutView />} />
+        <Route path="/news" element={<NewsView />} />
+        {/* master detail: */}
+        <Route path="/news/:id" element={<NewsDetailsView />} />
+      </Routes>
+    </>
   );
 }
 
